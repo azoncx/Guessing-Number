@@ -34,7 +34,11 @@
       const userGuess = parseInt(guessField.value);
       console.log("userGuess: " + userGuess);
 
-      if (userGuess === targetNumber) {
+      if (countGuess > 4) {
+        message.textContent = "You Failed! 答案是 " + targetNumber;
+        message.style.color = "red";
+        guessSubmit.disabled = true;
+      } else if (userGuess === targetNumber) {
         message.textContent =
           "恭喜你，你猜對了！你這次猜了 " + countGuess + " 次哦〜";
         message.style.color = "green";
