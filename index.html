@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hant-TW">
   <head>
     <title>猜數字遊戲</title>
@@ -9,6 +9,7 @@
     <p>1 到 100 之間的數字，你猜是多少？</p>
     <input type="text" id="guessField" />
     <input type="submit" value="猜!" id="guessSubmit" />
+    <input type="submit" value="揭曉!" id="revealSubmit" />
     <p class="message"></p>
   </body>
   <script>
@@ -19,12 +20,14 @@
     // Get element
     const guessField = document.getElementById("guessField");
     const guessSubmit = document.getElementById("guessSubmit");
+    const revealSubmit = document.getElementById("revealSubmit");
     const message = document.querySelector(".message");
 
     // Event listener
     guessSubmit.addEventListener("click", checkGuess);
+    revealSubmit.addEventListener("click", showGuess);
 
-    // Guess function
+    // Guess function "to check"
     let countGuess = 0;
     function checkGuess() {
       countGuess++;
@@ -44,6 +47,16 @@
         message.style.color = "red";
       }
 
+      guessField.value = "";
+      guessField.focus();
+    }
+
+    // Guess function "to show"
+    function showGuess() {
+      message.textContent = "答案是：" + targetNumber;
+      message.style.color = "blue";
+      guessSubmit.disabled = true;
+      revealSubmit.disabled = true;
       guessField.value = "";
       guessField.focus();
     }
