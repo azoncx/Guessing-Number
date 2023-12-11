@@ -10,6 +10,7 @@
     <input type="text" id="guessField" />
     <input type="submit" value="猜!" id="guessSubmit" />
     <input type="submit" value="揭曉!" id="revealSubmit" />
+    <input type="submit" value="再玩一次!" id="restartGame" />
     <p class="message"></p>
   </body>
   <script>
@@ -21,11 +22,13 @@
     const guessField = document.getElementById("guessField");
     const guessSubmit = document.getElementById("guessSubmit");
     const revealSubmit = document.getElementById("revealSubmit");
+    const restartGame = document.getElementById("restartGame");
     const message = document.querySelector(".message");
 
     // Event listener
     guessSubmit.addEventListener("click", checkGuess);
     revealSubmit.addEventListener("click", showGuess);
+    restartGame.addEventListener("click", palyAgain);
 
     // Guess function "to check"
     let countGuess = 0;
@@ -61,6 +64,17 @@
       message.style.color = "blue";
       guessSubmit.disabled = true;
       revealSubmit.disabled = true;
+      guessField.value = "";
+      guessField.focus();
+    }
+
+    // Start function "to restart"
+    function palyAgain() {
+      history.go();
+      message.textContent = "";
+      guessSubmit.disabled = false;
+      revealSubmit.disabled = false;
+      restartGame.disabled = false;
       guessField.value = "";
       guessField.focus();
     }
