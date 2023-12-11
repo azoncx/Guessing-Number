@@ -41,6 +41,7 @@
         message.textContent = "You Failed! 答案是 " + targetNumber;
         message.style.color = "red";
         guessSubmit.disabled = true;
+        setTimeout(palyAgain, 5000);
       } else if (userGuess === targetNumber) {
         message.textContent =
           "恭喜你，你猜對了！你這次猜了 " + countGuess + " 次哦〜";
