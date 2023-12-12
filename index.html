@@ -28,8 +28,6 @@
     randomNumber();
 
     // Get element
-    let floorNumber = document.querySelector(".floorNumber");
-    let ceilingNumber = document.querySelector(".ceilingNumber");
     const guessField = document.getElementById("guessField");
     const guessSubmit = document.getElementById("guessSubmit");
     const revealSubmit = document.getElementById("revealSubmit");
@@ -101,6 +99,29 @@
       second.textContent = ""; // Clear the countdown display
       guessField.value = "";
       guessField.focus();
+      second.textContent = ""; // Clear the countdown display
+    }
+
+    // delayedDisplay and display function
+    function delayedDisplay(string, ms, callback) {
+      setTimeout(function () {
+        callback(string);
+      }, ms);
+    }
+
+    function display(string) {
+      second.textContent = "倒數計時： " + string + "秒";
+    }
+
+    // delayedDisplay and display function
+    function delayedDisplay(string, ms, callback) {
+      setTimeout(function () {
+        callback(string);
+      }, ms);
+    }
+
+    function display(string) {
+      second.textContent = "倒數計時： " + string + "秒";
     }
 
     // delayedDisplay and display function
