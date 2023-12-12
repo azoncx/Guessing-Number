@@ -47,11 +47,29 @@
       const userGuess = parseInt(guessField.value);
       console.log("userGuess: " + userGuess);
 
-      if (countGuess > 4) {
+      if (userGuess === targetNumber) {
+        message.textContent =
+          "恭喜你，你猜對了！你這次猜了 " + countGuess + " 次哦〜";
+        message.style.color = "green";
+        guessSubmit.disabled = true;
+      } else if (countGuess > 4) {
         message.textContent = "You Failed! 答案是 " + targetNumber;
         message.style.color = "red";
         guessSubmit.disabled = true;
-        setTimeout(palyAgain, 5000);
+        revealSubmit.disabled = true;
+
+        // Countdown and restart
+        setTimeout(function () {
+          // Count down
+          delayedDisplay("5", 0, display);
+          delayedDisplay("4", 1000, display);
+          delayedDisplay("3", 2000, display);
+          delayedDisplay("2", 3000, display);
+          delayedDisplay("1", 4000, display);
+          delayedDisplay("0", 5000, display);
+          // Restart the game
+          setTimeout(palyAgain, 5000);
+        });
       } else if (userGuess === targetNumber) {
         message.textContent =
           "恭喜你，你猜對了！你這次猜了 " + countGuess + " 次哦〜";
