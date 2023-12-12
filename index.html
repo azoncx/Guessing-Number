@@ -6,12 +6,16 @@
   </head>
   <body>
     <h1>猜數字遊戲</h1>
-    <p>1 到 100 之間的數字，你猜是多少？</p>
+    <p>
+      <span class="floorNumber">1</span> 到
+      <span class="ceilingNumber">100</span> 之間的數字，你猜是多少？
+    </p>
     <input type="text" id="guessField" />
     <input type="submit" value="猜!" id="guessSubmit" />
     <input type="submit" value="揭曉!" id="revealSubmit" />
     <input type="submit" value="再玩一次!" id="restartGame" />
     <p class="message"></p>
+    <p class="second"></p>
   </body>
   <script>
     // Random number
@@ -24,13 +28,14 @@
     randomNumber();
 
     // Get element
-    let floorNumber = document.querySelector(".floorNumber");
-    let ceilingNumber = document.querySelector(".ceilingNumber");
+    const floorNumber = document.querySelector(".floorNumber");
+    const ceilingNumber = document.querySelector(".ceilingNumber");
     const guessField = document.getElementById("guessField");
     const guessSubmit = document.getElementById("guessSubmit");
     const revealSubmit = document.getElementById("revealSubmit");
     const restartGame = document.getElementById("restartGame");
     const message = document.querySelector(".message");
+    const second = document.querySelector(".second");
 
     // Event listener
     guessSubmit.addEventListener("click", checkGuess);
@@ -48,7 +53,20 @@
         message.textContent = "You Failed! 答案是 " + targetNumber;
         message.style.color = "red";
         guessSubmit.disabled = true;
-        setTimeout(palyAgain, 5000);
+        revealSubmit.disabled = true;
+
+        // Countdown and restart
+        setTimeout(function () {
+          // Count down
+          delayedDisplay("5", 0, display);
+          delayedDisplay("4", 1000, display);
+          delayedDisplay("3", 2000, display);
+          delayedDisplay("2", 3000, display);
+          delayedDisplay("1", 4000, display);
+          delayedDisplay("0", 5000, display);
+          // Restart the game
+          setTimeout(palyAgain, 5000);
+        });
       } else if (userGuess === targetNumber) {
         message.textContent =
           "恭喜你，你猜對了！你這次猜了 " + countGuess + " 次哦〜";
@@ -70,9 +88,11 @@
           delayedDisplay("0", 5000, playAgain);
         });
       } else if (userGuess < targetNumber) {
+        floorNumber.textContent = userGuess;
         message.textContent = "太小了，再試一次。";
         message.style.color = "red";
       } else {
+        ceilingNumber.textContent = userGuess;
         message.textContent = "太大了，再試一次。";
         message.style.color = "red";
       }
@@ -104,17 +124,6 @@
       second.textContent = ""; // Clear the countdown display
       guessField.value = "";
       guessField.focus();
-    }
-
-    // delayedDisplay and display function
-    function delayedDisplay(string, ms, callback) {
-      setTimeout(function () {
-        callback(string);
-      }, ms);
-    }
-
-    function display(string) {
-      second.textContent = "倒數計時： " + string + "秒";
     }
   </script>
 </html>
