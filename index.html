@@ -28,8 +28,6 @@
     randomNumber();
 
     // Get element
-    let floorNumber = document.querySelector(".floorNumber");
-    let ceilingNumber = document.querySelector(".ceilingNumber");
     const guessField = document.getElementById("guessField");
     const guessSubmit = document.getElementById("guessSubmit");
     const revealSubmit = document.getElementById("revealSubmit");
@@ -53,17 +51,12 @@
         message.textContent = "You Failed! 答案是 " + targetNumber;
         message.style.color = "red";
         guessSubmit.disabled = true;
-        revealSubmit.disabled = true;
-
-        // Countdown and restart
-        setTimeout(function () {
-          delayedDisplay("5", 0, display);
-          delayedDisplay("4", 1000, display);
-          delayedDisplay("3", 2000, display);
-          delayedDisplay("2", 3000, display);
-          delayedDisplay("1", 4000, display);
-          delayedDisplay("0", 5000, playAgain);
-        });
+        setTimeout(palyAgain, 5000);
+      } else if (userGuess === targetNumber) {
+        message.textContent =
+          "恭喜你，你猜對了！你這次猜了 " + countGuess + " 次哦〜";
+        message.style.color = "green";
+        guessSubmit.disabled = true;
       } else if (userGuess < targetNumber) {
         floorNumber.textContent = userGuess;
         message.textContent = "太小了，再試一次。";
@@ -101,6 +94,18 @@
       second.textContent = ""; // Clear the countdown display
       guessField.value = "";
       guessField.focus();
+      second.textContent = ""; // Clear the countdown display
+    }
+
+    // delayedDisplay and display function
+    function delayedDisplay(string, ms, callback) {
+      setTimeout(function () {
+        callback(string);
+      }, ms);
+    }
+
+    function display(string) {
+      second.textContent = "倒數計時： " + string + "秒";
     }
 
     // delayedDisplay and display function
