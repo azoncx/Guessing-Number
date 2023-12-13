@@ -28,8 +28,8 @@
     randomNumber();
 
     // Get element
-    const floorNumber = document.querySelector(".floorNumber");
-    const ceilingNumber = document.querySelector(".ceilingNumber");
+    let floorNumber = document.querySelector(".floorNumber");
+    let ceilingNumber = document.querySelector(".ceilingNumber");
     const guessField = document.getElementById("guessField");
     const guessSubmit = document.getElementById("guessSubmit");
     const revealSubmit = document.getElementById("revealSubmit");
@@ -54,7 +54,7 @@
           "恭喜你，你猜對了！你這次猜了 " + countGuess + " 次哦〜";
         message.style.color = "green";
         guessSubmit.disabled = true;
-      } else if (countGuess > 4) {
+      } else if (countGuess >= 5) {
         message.textContent = "You Failed! 答案是 " + targetNumber;
         message.style.color = "red";
         guessSubmit.disabled = true;
@@ -62,15 +62,12 @@
 
         // Countdown and restart
         setTimeout(function () {
-          // Count down
           delayedDisplay("5", 0, display);
           delayedDisplay("4", 1000, display);
           delayedDisplay("3", 2000, display);
           delayedDisplay("2", 3000, display);
           delayedDisplay("1", 4000, display);
-          delayedDisplay("0", 5000, display);
-          // Restart the game
-          setTimeout(palyAgain, 5000);
+          delayedDisplay("0", 5000, playAgain);
         });
       } else if (userGuess < targetNumber) {
         floorNumber.textContent = userGuess;
@@ -109,6 +106,17 @@
       second.textContent = ""; // Clear the countdown display
       guessField.value = "";
       guessField.focus();
+    }
+
+    // delayedDisplay and display function
+    function delayedDisplay(string, ms, callback) {
+      setTimeout(function () {
+        callback(string);
+      }, ms);
+    }
+
+    function display(string) {
+      second.textContent = "倒數計時： " + string + "秒";
     }
   </script>
 </html>
