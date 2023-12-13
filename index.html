@@ -106,18 +106,6 @@
       second.textContent = ""; // Clear the countdown display
       guessField.value = "";
       guessField.focus();
-      second.textContent = ""; // Clear the countdown display
-    }
-
-    // delayedDisplay and display function
-    function delayedDisplay(string, ms, callback) {
-      setTimeout(function () {
-        callback(string);
-      }, ms);
-    }
-
-    function display(string) {
-      second.textContent = "倒數計時： " + string + "秒";
     }
 
     // delayedDisplay and display function
