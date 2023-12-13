@@ -19,12 +19,17 @@
   </body>
   <script>
     // Random number
-    const targetNumber = Math.floor(Math.random() * 100) + 1;
-    console.log("answer: " + targetNumber);
+    let targetNumber = 0;
+    function randomNumber() {
+      targetNumber = Math.floor(Math.random() * 100) + 1;
+      console.log("answer: " + targetNumber);
+      return targetNumber;
+    }
+    randomNumber();
 
     // Get element
-    const floorNumber = document.querySelector(".floorNumber");
-    const ceilingNumber = document.querySelector(".ceilingNumber");
+    let floorNumber = document.querySelector(".floorNumber");
+    let ceilingNumber = document.querySelector(".ceilingNumber");
     const guessField = document.getElementById("guessField");
     const guessSubmit = document.getElementById("guessSubmit");
     const revealSubmit = document.getElementById("revealSubmit");
@@ -35,7 +40,7 @@
     // Event listener
     guessSubmit.addEventListener("click", checkGuess);
     revealSubmit.addEventListener("click", showGuess);
-    restartGame.addEventListener("click", palyAgain);
+    restartGame.addEventListener("click", playAgain);
 
     // Guess function "to check"
     let countGuess = 0;
@@ -49,7 +54,7 @@
           "恭喜你，你猜對了！你這次猜了 " + countGuess + " 次哦〜";
         message.style.color = "green";
         guessSubmit.disabled = true;
-      } else if (countGuess > 4) {
+      } else if (countGuess >= 5) {
         message.textContent = "You Failed! 答案是 " + targetNumber;
         message.style.color = "red";
         guessSubmit.disabled = true;
@@ -57,15 +62,12 @@
 
         // Countdown and restart
         setTimeout(function () {
-          // Count down
           delayedDisplay("5", 0, display);
           delayedDisplay("4", 1000, display);
           delayedDisplay("3", 2000, display);
           delayedDisplay("2", 3000, display);
           delayedDisplay("1", 4000, display);
-          delayedDisplay("0", 5000, display);
-          // Restart the game
-          setTimeout(palyAgain, 5000);
+          delayedDisplay("0", 5000, playAgain);
         });
       } else if (userGuess < targetNumber) {
         floorNumber.textContent = userGuess;
@@ -92,15 +94,18 @@
     }
 
     // Start function "to restart"
-    function palyAgain() {
-      history.go();
-      message.textContent = "";
+    function playAgain() {
+      randomNumber();
+      floorNumber.textContent = 1;
+      ceilingNumber.textContent = 100;
       guessSubmit.disabled = false;
       revealSubmit.disabled = false;
       restartGame.disabled = false;
+      countGuess = 0;
+      message.textContent = "";
+      second.textContent = ""; // Clear the countdown display
       guessField.value = "";
       guessField.focus();
-      second.textContent = ""; // Clear the countdown display
     }
 
     // delayedDisplay and display function
