@@ -19,7 +19,6 @@
   </body>
   <script>
     // Random number
-    let targetNumber = 0;
     function randomNumber() {
       targetNumber = Math.floor(Math.random() * 100) + 1;
       console.log("answer: " + targetNumber);
@@ -28,8 +27,9 @@
     randomNumber();
 
     // Get element
-    let floorNumber = document.querySelector(".floorNumber");
-    let ceilingNumber = document.querySelector(".ceilingNumber");
+    const targetNumber = 0;
+    const floorNumber = document.querySelector(".floorNumber");
+    const ceilingNumber = document.querySelector(".ceilingNumber");
     const guessField = document.getElementById("guessField");
     const guessSubmit = document.getElementById("guessSubmit");
     const revealSubmit = document.getElementById("revealSubmit");
@@ -96,8 +96,8 @@
     // Start function "to restart"
     function playAgain() {
       randomNumber();
-      floorNumber.textContent = 1;
-      ceilingNumber.textContent = 100;
+      floorNumber.textContent = "1";
+      ceilingNumber.textContent = "100";
       guessSubmit.disabled = false;
       revealSubmit.disabled = false;
       restartGame.disabled = false;
